@@ -30,7 +30,7 @@ package uk.co.homletmoo.ld30.entity
 		public function Marble(x:int, y:int) 
 		{
 			super(x + 2, y + 2);
-			setHitbox(24, 24, -6, -6);
+			setHitbox(24, 24, -4, -4);
 			type = "marble";
 			
 			image = new Image(Images.MARBLE);
@@ -72,6 +72,16 @@ package uk.co.homletmoo.ld30.entity
 				{
 					velocity.x = 0;
 				}
+			}
+			
+			var dx:int = int(right) - int(left);
+			var dy:int = int(down) - int(up);
+			if (up || left || down || right)
+			{
+				Main.instance.tilt(10, Math.atan2(dx, dy) / Math.PI * 180);
+			} else
+			{
+				Main.instance.tilt(0);
 			}
 			
 			moveBy(velocity.x * FP.elapsed, velocity.y * FP.elapsed, "wall");

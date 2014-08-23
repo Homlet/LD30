@@ -24,40 +24,41 @@ package uk.co.homletmoo.ld30
 		public static const HEIGHT:uint = 600;
 		public static const SCALE:uint = 4;
 		
-		public var dir:uint = 0;
+		public var current_amt:Number;
+		public var last_dir:Number;
 		
 		public function Main()
 		{
 			super(WIDTH, HEIGHT, 60);
 			
 			instance = this;
+			current_amt = 0.0;
 			
-			//FP.console.enable();
+			FP.console.enable();
 			FP.console.toggleKey = Key.TAB;
 		}
 		
 		override public function init():void
 		{
 			Controls.register();
-			FP.world = new LevelWorld(0);
+			FP.world = new LevelWorld(3);
 		}
 		
-		override public function update():void
+		public function tilt(amount:Number, direction:Number=NaN):void
 		{
-			tilt(10, dir++);
-			super.update();
-		}
-		
-		public function tilt(amount:Number, direction:Number):void
-		{
-			var matrix:Matrix3D = new Matrix3D();
-			var dir_v:Vector3D = new Vector3D(Math.cos(direction / 180 * Math.PI), -Math.sin(direction / 180 * Math.PI))
-			matrix.appendRotation(
-				amount,
+			if (direction != direction) { direction = last_dir; }
+			last_dir = direction;
+			current_amt += (amount - current_amt) / 20;
+			transform.matrix3D = new Matrix3D();
+			var dir_v:Vector3D = new Vector3D(
+				Math.cos(direction / 180 * Math.PI),
+				-Math.sin(direction / 180 * Math.PI)
+			)
+			transform.matrix3D.appendRotation(
+				current_amt,
 				dir_v,
 				new Vector3D((1 - dir_v.y) * WIDTH / 2, (dir_v.x + 1) * HEIGHT / 2, 0, 1)
 			);
-			transform.matrix3D = matrix;
 		}
 	}
 }

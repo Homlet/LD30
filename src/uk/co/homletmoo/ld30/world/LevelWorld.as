@@ -8,6 +8,7 @@ package uk.co.homletmoo.ld30.world
 	import net.flashpunk.masks.Grid;
 	import net.flashpunk.World;
 	import uk.co.homletmoo.ld30.assets.Images;
+	import uk.co.homletmoo.ld30.entity.Hole;
 	import uk.co.homletmoo.ld30.entity.Marble;
 	import uk.co.homletmoo.ld30.entity.Target;
 	import uk.co.homletmoo.ld30.Main;
@@ -32,6 +33,7 @@ package uk.co.homletmoo.ld30.world
 		
 		private var marbles:Array;
 		private var targets:Array;
+		private var holes:Array;
 		
 		
 		public function LevelWorld(index:uint) 
@@ -54,6 +56,7 @@ package uk.co.homletmoo.ld30.world
 			
 			marbles = new Array();
 			targets = new Array();
+			holes = new Array();
 			
 			for (var i:uint = 0; i < bitmap.width; i++)
 			for (var j:uint = 0; j < bitmap.height; j++)
@@ -61,17 +64,25 @@ package uk.co.homletmoo.ld30.world
 				var value:uint = map_pixel(bitmap.getPixel(i, j));
 				background.setTile(i, j, value);
 				
-				if (value == TILE_WALL)
+				switch (value)
 				{
+				case TILE_WALL:
 					(collision.mask as Grid).setTile(i, j, true);
-				}
-				if (value == TILE_START)
-				{
+					break;
+				
+				case TILE_START:
 					marbles.push(new Marble(i * tile_size, j * tile_size));
-				}
-				if (value == TILE_END)
-				{
+					break;
+				
+				case TILE_END:
 					targets.push(new Target(i * tile_size, j * tile_size));
+					break;
+				
+				case TILE_HOLE:
+					holes.push(new Hole(i * tile_size, j * tile_size));
+					break;
+				
+				default: break;
 				}
 			}
 		}
@@ -83,6 +94,7 @@ package uk.co.homletmoo.ld30.world
 			
 			for each (var marble:Marble in marbles) { add(marble); }
 			for each (var target:Target in targets) { add(target); }
+			for each (var hole:Hole in holes) { add(hole); }
 		}
 		
 		override public function update():void
