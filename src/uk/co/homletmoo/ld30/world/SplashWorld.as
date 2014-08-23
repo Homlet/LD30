@@ -26,24 +26,22 @@ package uk.co.homletmoo.ld30.world
 		{
 			hm_logo = new Image(Images.HM_LOGO);
 			hm_logo.scale = Main.SCALE * 2;
-			hm_logo.alpha = 0.0;
+			hm_logo.alpha = 0;
 			hm_logo.centerOrigin();
 			
 			fp_logo = new Spritemap(Images.FP_LOGO, 100, 100);
 			fp_logo.scale = Main.SCALE;
-			fp_logo.alpha = 0.0;
+			fp_logo.alpha = 0;
 			fp_logo.add("play", [0, 1, 2, 3], 8);
 			
 			tweens = [
-				function():void { FP.tween(fp_logo, {alpha: 1}, 1, {complete: next, easing: Ease.expoIn}); },
-				function():void { FP.tween(null, null, 1.25, {complete: next}); },
-				function():void { FP.tween(fp_logo, { alpha: 0 }, 0.5, { complete: next } ); },
+				function():void { FP.tween(fp_logo, {alpha: 1}, 0.8, {complete: next, easing: Ease.expoIn}); },
+				function():void { FP.tween(null, null, 0.8, {complete: next}); },
+				function():void { FP.tween(fp_logo, {alpha: 0}, 0.5, {complete: next}); },
 				
-				function():void { FP.tween(hm_logo, {alpha: 1}, 1, {complete: next, easing: Ease.expoIn}); },
-				function():void { FP.tween(null, null, 1.25, {complete: next}); },
-				function():void { FP.tween(hm_logo, {alpha: 0}, 0.5, {complete: next}); },
-				
-				function():void { done(); }
+				function():void { FP.tween(hm_logo, {alpha: 1}, 0.8, {complete: next, easing: Ease.expoIn}); },
+				function():void { FP.tween(null, null, 0.8, {complete: next}); },
+				function():void { FP.tween(hm_logo, {alpha: 0}, 0.5, {complete: done}); }
 			];
 		}
 		
@@ -64,7 +62,7 @@ package uk.co.homletmoo.ld30.world
 		
 		private function done():void
 		{
-			// TODO: FP.world = new ...World();
+			FP.world = new LevelWorld(Images.LVL_01);
 		}
 	}
 }
