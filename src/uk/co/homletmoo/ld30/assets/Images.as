@@ -12,7 +12,20 @@ package uk.co.homletmoo.ld30.assets
 	 * @author Homletmoo
 	 */
 	public class Images 
-	{
+	{		
+		// Images:
+		[Embed (source = "images/hm.png")] public static var HM_LOGO:Class;
+		[Embed (source = "images/flashpunk.png")] public static var FP_LOGO:Class;
+		[Embed (source = "images/tiles.png")] public static var TILES:Class;
+		[Embed (source = "images/marble.png")] public static var MARBLE:Class;
+		
+		// Levels:
+		[Embed (source = "levels/01.png")] public static var LVL_01:Class;
+		[Embed (source = "levels/02.png")] public static var LVL_02:Class;
+		[Embed (source = "levels/03.png")] public static var LVL_03:Class;
+		public static const LEVELS:Array = [LVL_01, LVL_02, LVL_03];
+		
+		
 		public static var cache:Dictionary;
 		public static function scale(source:Class, factor:uint):BitmapData
 		{
@@ -33,13 +46,5 @@ package uk.co.homletmoo.ld30.assets
 			
 			return scaled;
 		}
-		
-		// Images:
-		[Embed (source = "images/hm.png")] public static var HM_LOGO:Class;
-		[Embed (source = "images/flashpunk.png")] public static var FP_LOGO:Class;
-		[Embed (source = "images/tiles.png")] public static var TILES:Class;
-		
-		// Levels:
-		[Embed (source = "levels/01.png")] public static var LVL_01:Class;
 	}
 }
