@@ -2,6 +2,7 @@ package uk.co.homletmoo.ld30.world
 {
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Ease;
 	import net.flashpunk.World;
 	import uk.co.homletmoo.ld30.assets.Images;
@@ -15,6 +16,7 @@ package uk.co.homletmoo.ld30.world
 	public class SplashWorld extends World 
 	{
 		private var hm_logo:Image;
+		private var fp_logo:Spritemap;
 		
 		private var tweens:Array;
 		private var stage:uint;
@@ -27,10 +29,20 @@ package uk.co.homletmoo.ld30.world
 			hm_logo.alpha = 0.0;
 			hm_logo.centerOrigin();
 			
+			fp_logo = new Spritemap(Images.FP_LOGO, 100, 100);
+			fp_logo.scale = Main.SCALE;
+			fp_logo.alpha = 0.0;
+			fp_logo.add("play", [0, 1, 2, 3], 8);
+			
 			tweens = [
+				function():void { FP.tween(fp_logo, {alpha: 1}, 1, {complete: next, easing: Ease.expoIn}); },
+				function():void { FP.tween(null, null, 1.25, {complete: next}); },
+				function():void { FP.tween(fp_logo, { alpha: 0 }, 0.5, { complete: next } ); },
+				
 				function():void { FP.tween(hm_logo, {alpha: 1}, 1, {complete: next, easing: Ease.expoIn}); },
 				function():void { FP.tween(null, null, 1.25, {complete: next}); },
 				function():void { FP.tween(hm_logo, {alpha: 0}, 0.5, {complete: next}); },
+				
 				function():void { done(); }
 			];
 		}
@@ -38,6 +50,9 @@ package uk.co.homletmoo.ld30.world
 		override public function begin():void
 		{
 			addGraphic(hm_logo, 0, Main.WIDTH / 2, Main.HEIGHT / 2);
+			addGraphic(fp_logo, 0, 0, Main.HEIGHT - fp_logo.scaledHeight);
+			
+			fp_logo.play("play");
 			
 			tweens[0]();
 		}
@@ -49,7 +64,7 @@ package uk.co.homletmoo.ld30.world
 		
 		private function done():void
 		{
-			// TODO@ FP.world = new ...World();
+			// TODO: FP.world = new ...World();
 		}
 	}
 }

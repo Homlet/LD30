@@ -11,5 +11,6 @@ package uk.co.homletmoo.ld30.assets
 	public class Images 
 	{
 		[Embed (source = "images/HM.png")] public static var HM_LOGO:Class;
+		[Embed (source = "images/flashpunk.png")] public static var FP_LOGO:Class;
 	}
 }
