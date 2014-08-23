@@ -18,13 +18,17 @@ package uk.co.homletmoo.ld30.assets
 		[Embed (source = "images/flashpunk.png")] public static var FP_LOGO:Class;
 		[Embed (source = "images/tiles.png")] public static var TILES:Class;
 		[Embed (source = "images/marble.png")] public static var MARBLE:Class;
+		[Embed (source = "images/hole_mask.png")] public static var HOLE_MASK:Class;
 		
 		// Levels:
 		[Embed (source = "levels/01.png")] public static var LVL_01:Class;
 		[Embed (source = "levels/02.png")] public static var LVL_02:Class;
 		[Embed (source = "levels/03.png")] public static var LVL_03:Class;
 		[Embed (source = "levels/04.png")] public static var LVL_04:Class;
-		public static const LEVELS:Array = [LVL_01, LVL_02, LVL_03, LVL_04];
+		[Embed (source = "levels/05.png")] public static var LVL_05:Class;
+		[Embed (source = "levels/06.png")] public static var LVL_06:Class;
+		[Embed (source = "levels/07.png")] public static var LVL_07:Class;
+		public static const LEVELS:Array = [LVL_01, LVL_02, LVL_03, LVL_04, LVL_05, LVL_06, LVL_07];
 		
 		
 		public static var cache:Dictionary;

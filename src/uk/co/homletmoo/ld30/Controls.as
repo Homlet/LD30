@@ -1,5 +1,4 @@
-package uk.co.homletmoo.ld30.assets 
-{
+package uk.co.homletmoo.ld30 {
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	/**

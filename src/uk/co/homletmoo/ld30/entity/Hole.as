@@ -1,6 +1,9 @@
 package uk.co.homletmoo.ld30.entity 
 {
 	import net.flashpunk.Entity;
+	import net.flashpunk.masks.Pixelmask;
+	import uk.co.homletmoo.ld30.assets.Images;
+	import uk.co.homletmoo.ld30.Main;
 	/**
 	 * ...
 	 * @author Homletmoo
@@ -10,7 +13,7 @@ package uk.co.homletmoo.ld30.entity
 		public function Hole(x:uint, y:uint) 
 		{
 			super(x, y);
-			setHitbox(16, 16, -12, -12);
+			mask = new Pixelmask(Images.HOLE_MASK);
 			type = "hole";
 		}
 	}

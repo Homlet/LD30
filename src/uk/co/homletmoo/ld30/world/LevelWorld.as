@@ -99,6 +99,9 @@ package uk.co.homletmoo.ld30.world
 		
 		override public function update():void
 		{
+			super.update();
+			
+			// Are all the targets lit?
 			var needed:uint = targets.length;
 			for each (var target:Target in targets) {
 				if (target.is_lit()) { needed-- };
@@ -106,7 +109,15 @@ package uk.co.homletmoo.ld30.world
 			
 			if (!needed) { FP.world = new LevelWorld(index + 1); }
 			
-			super.update();
+			// Marbles fall into holes.
+			for each (var marble:Marble in marbles)
+			{
+				if (marble.collide("hole", marble.x, marble.y) != null)
+				{
+					var f:Function = function(m:Marble, ...rest):void { m.reset(); }
+					marbles.forEach(f);
+				}
+			}
 		}
 		
 		public static function map_pixel(color:uint):uint

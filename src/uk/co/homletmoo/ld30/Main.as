@@ -5,7 +5,6 @@ package uk.co.homletmoo.ld30
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Key;
-	import uk.co.homletmoo.ld30.assets.Controls;
 	import uk.co.homletmoo.ld30.assets.Images;
 	import uk.co.homletmoo.ld30.world.LevelWorld;
 	
@@ -32,16 +31,18 @@ package uk.co.homletmoo.ld30
 			super(WIDTH, HEIGHT, 60);
 			
 			instance = this;
-			current_amt = 0.0;
 			
-			FP.console.enable();
+			current_amt = 0.0;
+			last_dir = 0.0;
+			
+			//FP.console.enable();
 			FP.console.toggleKey = Key.TAB;
 		}
 		
 		override public function init():void
 		{
 			Controls.register();
-			FP.world = new LevelWorld(3);
+			FP.world = new LevelWorld(0);
 		}
 		
 		public function tilt(amount:Number, direction:Number=NaN):void

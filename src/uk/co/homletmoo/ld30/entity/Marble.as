@@ -6,7 +6,7 @@ package uk.co.homletmoo.ld30.entity
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Pixelmask;
 	import net.flashpunk.utils.Input;
-	import uk.co.homletmoo.ld30.assets.Controls;
+	import uk.co.homletmoo.ld30.Controls;
 	import uk.co.homletmoo.ld30.assets.Images;
 	import uk.co.homletmoo.ld30.Main;
 	import uk.co.homletmoo.ld30.Utils;
@@ -20,16 +20,17 @@ package uk.co.homletmoo.ld30.entity
 	{
 		public static const G:Number = 980; // Pixels per second per second.
 		public static const MU:Number = 0.08;
-		public static const RESTITUTION:Number = 0.5;
+		public static const RESTITUTION:Number = 0.4;
 		public static const SLOPE:Number = (1 - MU * Math.sqrt(3)) / 2;
 		
 		private var image:Image;
 		
+		private var start_pos:Point;
 		private var velocity:Point;
 		
 		public function Marble(x:int, y:int) 
 		{
-			super(x + 2, y + 2);
+			super(x + 4, y + 4);
 			setHitbox(24, 24, -4, -4);
 			type = "marble";
 			
@@ -37,6 +38,14 @@ package uk.co.homletmoo.ld30.entity
 			image.scale = Main.SCALE;
 			graphic = image;
 			
+			start_pos = new Point(x + 4, y + 4);
+			velocity = new Point();
+		}
+		
+		public function reset():void
+		{
+			x = start_pos.x;
+			y = start_pos.y;
 			velocity = new Point();
 		}
 		
@@ -76,9 +85,9 @@ package uk.co.homletmoo.ld30.entity
 			
 			var dx:int = int(right) - int(left);
 			var dy:int = int(down) - int(up);
-			if (up || left || down || right)
+			if (Utils.xor(left, right) || Utils.xor(up, down))
 			{
-				Main.instance.tilt(10, Math.atan2(dx, dy) / Math.PI * 180);
+				Main.instance.tilt(3, Math.atan2(dx, dy) / Math.PI * 180);
 			} else
 			{
 				Main.instance.tilt(0);
