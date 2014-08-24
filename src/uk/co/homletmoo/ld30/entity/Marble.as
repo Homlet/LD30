@@ -90,7 +90,7 @@ package uk.co.homletmoo.ld30.entity
 			var friction:Number = G * MU * FP.elapsed;
 			if (!Utils.xor(up, down))
 			{
-				if (Math.abs(velocity.y) >= friction)
+				if (Math.abs(velocity.y) > friction > 0)
 				{
 					velocity.y -= friction * (velocity.y / Math.abs(velocity.y));
 				} else
@@ -100,7 +100,7 @@ package uk.co.homletmoo.ld30.entity
 			}
 			if (!Utils.xor(left, right))
 			{
-				if (Math.abs(velocity.x) > friction)
+				if (Math.abs(velocity.x) > friction > 0)
 				{
 					velocity.x -= friction * (velocity.x / Math.abs(velocity.x));
 				} else

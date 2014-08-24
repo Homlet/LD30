@@ -16,7 +16,7 @@ package uk.co.homletmoo.ld30
 	 * @author Homletmoo
 	 */
 	public class Main extends Engine 
-	{
+	{	
 		public static var instance:Main;
 		
 		public static const WIDTH:uint = 800;
@@ -35,7 +35,7 @@ package uk.co.homletmoo.ld30
 			current_amt = 0.0;
 			last_dir = 0.0;
 			
-			//FP.console.enable();
+			FP.console.enable();
 			FP.console.toggleKey = Key.TAB;
 		}
 		
