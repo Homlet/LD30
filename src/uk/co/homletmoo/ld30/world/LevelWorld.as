@@ -9,6 +9,7 @@ package uk.co.homletmoo.ld30.world
 	import net.flashpunk.masks.Grid;
 	import net.flashpunk.World;
 	import uk.co.homletmoo.ld30.assets.Images;
+	import uk.co.homletmoo.ld30.assets.Sounds;
 	import uk.co.homletmoo.ld30.entity.Hole;
 	import uk.co.homletmoo.ld30.entity.Marble;
 	import uk.co.homletmoo.ld30.entity.Target;
@@ -131,6 +132,7 @@ package uk.co.homletmoo.ld30.world
 				{
 					var f:Function = function(m:Marble, ...rest):void { m.reset(hole); }
 					marbles.forEach(f);
+					Sounds.play_next(Sounds.HOLES);
 				}
 			}
 		}

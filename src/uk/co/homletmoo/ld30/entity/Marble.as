@@ -7,6 +7,7 @@ package uk.co.homletmoo.ld30.entity
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Ease;
 	import net.flashpunk.utils.Input;
+	import uk.co.homletmoo.ld30.assets.Sounds;
 	import uk.co.homletmoo.ld30.Controls;
 	import uk.co.homletmoo.ld30.assets.Images;
 	import uk.co.homletmoo.ld30.Main;
@@ -132,6 +133,8 @@ package uk.co.homletmoo.ld30.entity
 				velocity.x = 0;
 			}
 			
+			hit_sound(velocity.x);
+			
 			return true;
 		}
 		
@@ -145,7 +148,18 @@ package uk.co.homletmoo.ld30.entity
 				velocity.y = 0;
 			}
 			
+			hit_sound(velocity.y);
+			
 			return true;
+		}
+		
+		private function hit_sound(vel:Number):void
+		{
+			vel = Math.abs(vel);
+			if (vel > 35)
+			{
+				Sounds.play_next(Sounds.HITS, vel / 150);
+			}
 		}
 	}
 }

@@ -6,6 +6,7 @@ package uk.co.homletmoo.ld30
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Key;
 	import uk.co.homletmoo.ld30.assets.Images;
+	import uk.co.homletmoo.ld30.assets.Sounds;
 	import uk.co.homletmoo.ld30.world.LevelWorld;
 	
 	[SWF (width = "800", height = "600", backgroundColor = "#523e29")]
@@ -35,13 +36,14 @@ package uk.co.homletmoo.ld30
 			current_amt = 0.0;
 			last_dir = 0.0;
 			
-			FP.console.enable();
+			//FP.console.enable();
 			FP.console.toggleKey = Key.TAB;
 		}
 		
 		override public function init():void
 		{
 			Controls.register();
+			Sounds.load();
 			FP.world = new LevelWorld(0);
 		}
 		

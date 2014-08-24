@@ -12,6 +12,7 @@ package uk.co.homletmoo.ld30 {
 		public static const DOWN:String = "down";
 		public static const RIGHT:String = "right";
 		
+		
 		public static function register():void
 		{
 			Input.define(UP, Key.UP, Key.W);
