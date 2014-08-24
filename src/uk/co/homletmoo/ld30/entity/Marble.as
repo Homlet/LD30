@@ -3,8 +3,9 @@ package uk.co.homletmoo.ld30.entity
 	import flash.geom.Point;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Emitter;
 	import net.flashpunk.graphics.Image;
-	import net.flashpunk.masks.Pixelmask;
+	import net.flashpunk.utils.Ease;
 	import net.flashpunk.utils.Input;
 	import uk.co.homletmoo.ld30.Controls;
 	import uk.co.homletmoo.ld30.assets.Images;
@@ -23,6 +24,7 @@ package uk.co.homletmoo.ld30.entity
 		public static const RESTITUTION:Number = 0.4;
 		public static const SLOPE:Number = (1 - MU * Math.sqrt(3)) / 2;
 		
+		private var emitter:Emitter;
 		private var image:Image;
 		
 		private var start_pos:Point;
@@ -34,19 +36,43 @@ package uk.co.homletmoo.ld30.entity
 			setHitbox(24, 24, -4, -4);
 			type = "marble";
 			
+			emitter = new Emitter(Images.scale(Images.MARBLE_PARTS, Main.SCALE), 32, 32);
+			emitter.relative = false;
+			emitter.newType("death", [0, 1, 2, 3, 4]);
+			emitter.setMotion("death", 0, 0, 0.45);
+			emitter.newType("spawn", [5, 6, 7, 8]);
+			emitter.setMotion("spawn", 0, 20, 0.5, 360, 50, 0.5, Ease.cubeOut);
+			addGraphic(emitter);
+			emit("spawn", 8);
+			
 			image = new Image(Images.MARBLE);
 			image.scale = Main.SCALE;
-			graphic = image;
+			addGraphic(image);
 			
 			start_pos = new Point(x + 4, y + 4);
 			velocity = new Point();
 		}
 		
-		public function reset():void
+		public function reset(hole:Hole=null):void
 		{
+			if (hole != null)
+			{
+				x = hole.x + 4;
+				y = hole.y + 4;
+				emit("death", 1);
+			}
 			x = start_pos.x;
 			y = start_pos.y;
+			emit("spawn", 8);
 			velocity = new Point();
+		}
+		
+		public function emit(type:String, amount:uint):void
+		{
+			for (var i:int = 0; i < amount; i++)
+			{
+				emitter.emit(type, x, y);
+			}
 		}
 		
 		override public function update():void

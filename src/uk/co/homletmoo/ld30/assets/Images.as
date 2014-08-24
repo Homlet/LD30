@@ -19,6 +19,7 @@ package uk.co.homletmoo.ld30.assets
 		[Embed (source = "images/tiles.png")] public static var TILES:Class;
 		[Embed (source = "images/marble.png")] public static var MARBLE:Class;
 		[Embed (source = "images/hole_mask.png")] public static var HOLE_MASK:Class;
+		[Embed (source = "images/marble_parts.png")] public static var MARBLE_PARTS:Class;
 		
 		// Levels:
 		[Embed (source = "levels/01.png")] public static var LVL_01:Class;

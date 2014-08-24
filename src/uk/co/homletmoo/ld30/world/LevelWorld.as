@@ -4,6 +4,7 @@ package uk.co.homletmoo.ld30.world
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Text;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.masks.Grid;
 	import net.flashpunk.World;
@@ -33,6 +34,7 @@ package uk.co.homletmoo.ld30.world
 		
 		private var marbles:Array;
 		private var targets:Array;
+		private var target_text:Text;
 		private var holes:Array;
 		
 		
@@ -85,11 +87,17 @@ package uk.co.homletmoo.ld30.world
 				default: break;
 				}
 			}
+			
+			target_text = new Text(targets.length.toString(), 10, 10);
+			target_text.color = 0xEDCF9B;
+			target_text.scale = Main.SCALE;
+			target_text.size = 16;
 		}
 		
 		override public function begin():void
 		{
 			addGraphic(background);
+			addGraphic(target_text);
 			add(collision);
 			
 			for each (var marble:Marble in marbles) { add(marble); }
@@ -107,14 +115,21 @@ package uk.co.homletmoo.ld30.world
 				if (target.is_lit()) { needed-- };
 			}
 			
-			if (!needed) { FP.world = new LevelWorld(index + 1); }
+			if (!needed)
+			{
+				FP.world = new LevelWorld(index + 1);
+			} else
+			{
+				target_text.text = needed.toString();
+			}
 			
 			// Marbles fall into holes.
 			for each (var marble:Marble in marbles)
 			{
-				if (marble.collide("hole", marble.x, marble.y) != null)
+				var hole:Hole = (marble.collide("hole", marble.x, marble.y) as Hole);
+				if (hole != null)
 				{
-					var f:Function = function(m:Marble, ...rest):void { m.reset(); }
+					var f:Function = function(m:Marble, ...rest):void { m.reset(hole); }
 					marbles.forEach(f);
 				}
 			}
