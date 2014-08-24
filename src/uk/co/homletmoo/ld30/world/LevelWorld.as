@@ -7,6 +7,7 @@ package uk.co.homletmoo.ld30.world
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.masks.Grid;
+	import net.flashpunk.utils.Ease;
 	import net.flashpunk.World;
 	import uk.co.homletmoo.ld30.assets.Images;
 	import uk.co.homletmoo.ld30.assets.Sounds;
@@ -38,10 +39,13 @@ package uk.co.homletmoo.ld30.world
 		private var target_text:Text;
 		private var holes:Array;
 		
+		private var seconds:uint;
 		
-		public function LevelWorld(index:uint) 
+		
+		public function LevelWorld(index:uint, seconds:uint=0) 
 		{
 			this.index = index;
+			this.seconds = seconds;
 			bitmap = FP.getBitmap(Images.LEVELS[index]);
 			tile_size = 10 * Main.SCALE;
 			background = new Tilemap(
@@ -101,6 +105,8 @@ package uk.co.homletmoo.ld30.world
 			addGraphic(target_text);
 			add(collision);
 			
+			if (!Sounds.ROLL.playing) { Sounds.ROLL.loop(0); }
+			
 			for each (var marble:Marble in marbles) { add(marble); }
 			for each (var target:Target in targets) { add(target); }
 			for each (var hole:Hole in holes) { add(hole); }
@@ -125,8 +131,12 @@ package uk.co.homletmoo.ld30.world
 			}
 			
 			// Marbles fall into holes.
+			var avg_speed:Number = 0.0;
 			for each (var marble:Marble in marbles)
 			{
+				// Determine volume of rolling sound.
+				avg_speed += marble.get_speed();
+				
 				var hole:Hole = (marble.collide("hole", marble.x, marble.y) as Hole);
 				if (hole != null)
 				{
@@ -134,6 +144,14 @@ package uk.co.homletmoo.ld30.world
 					marbles.forEach(f);
 					Sounds.play_next(Sounds.HOLES);
 				}
+			}
+			
+			// Dividing by zero is bad.
+			if (marbles.length > 0)
+			{
+				avg_speed /= marbles.length;
+				Sounds.ROLL.volume += (Ease.sineIn(avg_speed / 200) - Sounds.ROLL.volume) / 5;
+				Sounds.ROLL.volume = Math.min(Sounds.ROLL.volume, 1.0);
 			}
 		}
 		

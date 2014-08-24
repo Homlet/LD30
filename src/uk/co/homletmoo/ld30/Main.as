@@ -44,7 +44,7 @@ package uk.co.homletmoo.ld30
 		{
 			Controls.register();
 			Sounds.load();
-			FP.world = new LevelWorld(0);
+			FP.world = new LevelWorld(6);
 		}
 		
 		public function tilt(amount:Number, direction:Number=NaN):void

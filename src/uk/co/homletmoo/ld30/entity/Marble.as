@@ -20,6 +20,7 @@ package uk.co.homletmoo.ld30.entity
 	 */
 	public class Marble extends Entity
 	{
+		// This stuff was worked out on paper, so trust me - it works.
 		public static const G:Number = 980; // Pixels per second per second.
 		public static const MU:Number = 0.08;
 		public static const RESTITUTION:Number = 0.4;
@@ -120,7 +121,7 @@ package uk.co.homletmoo.ld30.entity
 				Main.instance.tilt(0);
 			}
 			
-			moveBy(velocity.x * FP.elapsed, velocity.y * FP.elapsed, "wall");
+			moveBy(velocity.x * FP.elapsed, velocity.y * FP.elapsed, ["wall", "marble"]);
 		}
 		
 		override public function moveCollideX(other:Entity):Boolean 
@@ -158,8 +159,13 @@ package uk.co.homletmoo.ld30.entity
 			vel = Math.abs(vel);
 			if (vel > 35)
 			{
-				Sounds.play_next(Sounds.HITS, vel / 150);
+				Sounds.play_next(Sounds.HITS, vel / 130);
 			}
+		}
+		
+		public function get_speed():Number
+		{
+			return velocity.length;
 		}
 	}
 }

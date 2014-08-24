@@ -29,7 +29,8 @@ package uk.co.homletmoo.ld30.assets
 		[Embed (source = "levels/05.png")] public static var LVL_05:Class;
 		[Embed (source = "levels/06.png")] public static var LVL_06:Class;
 		[Embed (source = "levels/07.png")] public static var LVL_07:Class;
-		public static const LEVELS:Array = [LVL_01, LVL_02, LVL_03, LVL_04, LVL_05, LVL_06, LVL_07];
+		[Embed (source = "levels/08.png")] public static var LVL_08:Class;
+		public static const LEVELS:Array = [LVL_01, LVL_02, LVL_03, LVL_04, LVL_05, LVL_06, LVL_07, LVL_08];
 		
 		
 		public static var cache:Dictionary;
