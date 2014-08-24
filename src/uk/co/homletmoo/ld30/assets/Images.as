@@ -20,6 +20,9 @@ package uk.co.homletmoo.ld30.assets
 		[Embed (source = "images/marble.png")] public static var MARBLE:Class;
 		[Embed (source = "images/hole_mask.png")] public static var HOLE_MASK:Class;
 		[Embed (source = "images/marble_parts.png")] public static var MARBLE_PARTS:Class;
+		[Embed (source = "images/title.png")] public static var TITLE:Class;
+		[Embed (source = "images/background.png")] public static var BACKGROUND:Class;
+		[Embed (source = "images/foreground.png")] public static var FOREGROUND:Class;
 		
 		// Levels:
 		[Embed (source = "levels/01.png")] public static var LVL_01:Class;
@@ -30,7 +33,10 @@ package uk.co.homletmoo.ld30.assets
 		[Embed (source = "levels/06.png")] public static var LVL_06:Class;
 		[Embed (source = "levels/07.png")] public static var LVL_07:Class;
 		[Embed (source = "levels/08.png")] public static var LVL_08:Class;
-		public static const LEVELS:Array = [LVL_01, LVL_02, LVL_03, LVL_04, LVL_05, LVL_06, LVL_07, LVL_08];
+		[Embed (source = "levels/09.png")] public static var LVL_09:Class;
+		public static const LEVELS:Array = [
+			LVL_01, LVL_02, LVL_03, LVL_04, LVL_05, LVL_06, LVL_07, LVL_08, LVL_09
+		];
 		
 		
 		public static var cache:Dictionary;

@@ -62,7 +62,7 @@ package uk.co.homletmoo.ld30.world
 		
 		private function done():void
 		{
-			FP.world = new LevelWorld(Images.LVL_01);
+			FP.world = new MenuWorld();
 		}
 	}
 }

@@ -7,7 +7,10 @@ package uk.co.homletmoo.ld30
 	import net.flashpunk.utils.Key;
 	import uk.co.homletmoo.ld30.assets.Images;
 	import uk.co.homletmoo.ld30.assets.Sounds;
+	import uk.co.homletmoo.ld30.world.EndWorld;
 	import uk.co.homletmoo.ld30.world.LevelWorld;
+	import uk.co.homletmoo.ld30.world.MenuWorld;
+	import uk.co.homletmoo.ld30.world.SplashWorld;
 	
 	[SWF (width = "800", height = "600", backgroundColor = "#523e29")]
 	
@@ -44,7 +47,7 @@ package uk.co.homletmoo.ld30
 		{
 			Controls.register();
 			Sounds.load();
-			FP.world = new LevelWorld(6);
+			FP.world = new SplashWorld();
 		}
 		
 		public function tilt(amount:Number, direction:Number=NaN):void

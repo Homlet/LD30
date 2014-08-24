@@ -159,7 +159,7 @@ package uk.co.homletmoo.ld30.entity
 			vel = Math.abs(vel);
 			if (vel > 35)
 			{
-				Sounds.play_next(Sounds.HITS, vel / 130);
+				Sounds.play_next(Sounds.HITS, vel / 130, Utils.pan(x, Main.WIDTH));
 			}
 		}
 		

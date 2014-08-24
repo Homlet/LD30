@@ -15,6 +15,7 @@ package uk.co.homletmoo.ld30.world
 	import uk.co.homletmoo.ld30.entity.Marble;
 	import uk.co.homletmoo.ld30.entity.Target;
 	import uk.co.homletmoo.ld30.Main;
+	import uk.co.homletmoo.ld30.Utils;
 	
 	/**
 	 * ...
@@ -36,13 +37,13 @@ package uk.co.homletmoo.ld30.world
 		
 		private var marbles:Array;
 		private var targets:Array;
-		private var target_text:Text;
 		private var holes:Array;
 		
-		private var seconds:uint;
+		private var seconds:Number;
+		private var time_text:Text;
 		
 		
-		public function LevelWorld(index:uint, seconds:uint=0) 
+		public function LevelWorld(index:uint, seconds:Number=0.0) 
 		{
 			this.index = index;
 			this.seconds = seconds;
@@ -93,19 +94,20 @@ package uk.co.homletmoo.ld30.world
 				}
 			}
 			
-			target_text = new Text(targets.length.toString(), 10, 10);
-			target_text.color = 0xEDCF9B;
-			target_text.scale = Main.SCALE;
-			target_text.size = 16;
+			time_text = new Text(Utils.time_format(seconds), 4, 4);
+			time_text.color = 0xEDCF9B;
+			time_text.scale = Main.SCALE;
+			time_text.size = 8;
 		}
 		
 		override public function begin():void
 		{
 			addGraphic(background);
-			addGraphic(target_text);
+			addGraphic(time_text);
 			add(collision);
 			
 			if (!Sounds.ROLL.playing) { Sounds.ROLL.loop(0); }
+			Sounds.BELL.play(2);
 			
 			for each (var marble:Marble in marbles) { add(marble); }
 			for each (var target:Target in targets) { add(target); }
@@ -116,6 +118,9 @@ package uk.co.homletmoo.ld30.world
 		{
 			super.update();
 			
+			seconds += FP.elapsed;
+			time_text.text = Utils.time_format(uint(seconds));
+			
 			// Are all the targets lit?
 			var needed:uint = targets.length;
 			for each (var target:Target in targets) {
@@ -124,11 +129,14 @@ package uk.co.homletmoo.ld30.world
 			
 			if (!needed)
 			{
-				FP.world = new LevelWorld(index + 1);
-			} else
-			{
-				target_text.text = needed.toString();
-			}
+				if (index == Images.LEVELS.length - 1)
+				{
+					FP.world = new EndWorld(seconds);
+				} else
+				{
+					FP.world = new LevelWorld(index + 1, seconds);
+				}
+			} 
 			
 			// Marbles fall into holes.
 			var avg_speed:Number = 0.0;
@@ -142,7 +150,7 @@ package uk.co.homletmoo.ld30.world
 				{
 					var f:Function = function(m:Marble, ...rest):void { m.reset(hole); }
 					marbles.forEach(f);
-					Sounds.play_next(Sounds.HOLES);
+					Sounds.play_next(Sounds.HOLES, 1, Utils.pan(hole.x, Main.WIDTH));
 				}
 			}
 			

@@ -59,6 +59,10 @@ package uk.co.homletmoo.ld30.assets
 		public static var ROLL_RAW:Class;
 		public static var ROLL:Sfx;
 		
+		[Embed (source = "sounds/bell.mp3")]
+		public static var BELL_RAW:Class;
+		public static var BELL:Sfx;
+		
 		
 		public static function load():void
 		{
@@ -78,11 +82,12 @@ package uk.co.homletmoo.ld30.assets
 			HITS = [0, HIT_1, HIT_2, HIT_3, HIT_4, HIT_5, HIT_6, HIT_7, HIT_8];
 			
 			ROLL = new Sfx(ROLL_RAW);
+			BELL = new Sfx(BELL_RAW);
 		}
 		
-		public static function play_next(array:Array, volume:Number=1.0):void
+		public static function play_next(array:Array, volume:Number=1.0, pan:Number=0.0):void
 		{
-			(array[array[0] + 1] as Sfx).play(volume);
+			(array[array[0] + 1] as Sfx).play(volume, pan);
 			array[0] = (array[0] + 1) % (array.length - 1);
 		}
 	}
